@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>routine1</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div id="image-container">
+        <img id="image" src="{{ url_for('static', filename='images/menu/menu0.png') }}" alt="Image">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var imageIndex = 1;
+        var imageCount = 8;
+        var timer = 15000;
+
+        function changeImage() {
+            var imageUrl = "/static/images/menu/menu" + imageIndex + ".png";
+            $("#image").attr("src", imageUrl);
+            imageIndex = (imageIndex % imageCount) + 1;
+        }
+
+        // Change image every 3 seconds (adjust as needed)
+        setInterval(changeImage, timer);
+    </script>
+</body>
+</html>
