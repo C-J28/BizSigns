@@ -1,0 +1,6 @@
+sudo nano /etc/xdg/autostart/myapp.desktop
+
+sudo apt-get install unclutter
+
+[Desktop Entry]
+Exec=chromium-browser --kiosk --noerrdialogs --disable-infobars --disable-restore-session-state http://192.168.1.50/"page name" & unclutter -idle 0.01 -root
