@@ -1,17 +1,16 @@
-from flask import Flask, render_template
-
-import os
+from flask import Flask, render_template, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-@app.route("/", methods=('GET', 'POST'))
-@app.route("/home", methods=('GET', 'POST'))
+@app.route('/', methods=('GET', 'POST'))
+@app.route('/home', methods=('GET', 'POST'))
 def home():
-    return render_template("index.html")
+    return render_template('index.html')
 
-@app.route("/template")
-def menu():
-    return render_template('template.html')
+@app.route("/base")
+def base():
+    return render_template('base.html')
 
 if __name__ == '__main__':
     app.run()
