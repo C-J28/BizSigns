@@ -6,9 +6,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  
 </head>
 <body>
   <h1>MainPage New</h1>
+
+  <div id="counter"></div>
+
+  <script>
+
+    var eventSource = new EventSource("/listen")
+
+    eventSource.addEventListener("message", function(e) {
+      console.log(e.data)
+    }, false)
+
+    eventSource.addEventListener("online", function(e) {
+      data = JSON.parse(e.data)
+      document.querySelector("#counter").innerText = data.counter
+      document.querySelector("body").style.backgroundColor = data.color
+    }, true)
+
+  </script>
 </body>
 </html>
