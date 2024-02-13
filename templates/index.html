@@ -11,22 +11,11 @@
 <body>
   <h1>MainPage New</h1>
 
-  <div id="counter"></div>
+  <h2>Upload Pictures</h2>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <input type="submit" value="Upload" />
+  </form>
 
-  <script>
-
-    var eventSource = new EventSource("/listen")
-
-    eventSource.addEventListener("message", function(e) {
-      console.log(e.data)
-    }, false)
-
-    eventSource.addEventListener("online", function(e) {
-      data = JSON.parse(e.data)
-      document.querySelector("#counter").innerText = data.counter
-      document.querySelector("body").style.backgroundColor = data.color
-    }, true)
-
-  </script>
 </body>
 </html>

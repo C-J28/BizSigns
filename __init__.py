@@ -1,42 +1,38 @@
-from flask import Flask, Response, render_template, stream_with_context
-from gevent import monkey; monkey.patch_all()
-from gevent.pywsgi import WSGIServer
-import json
-import time
+from flask import Flask, render_template, request
+from flask_wtf import FlaskForm
+from wtforms import FileField, SubmitField
+from werkzeug.utils import secure_filename
+from wtforms.validators import InputRequired
+
+import os
+import magic
 
 app = Flask(__name__)
-counter = 100
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
+
+def allowed_file_types(filename):
+    return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/', methods=('GET', 'POST'))
 @app.route('/home', methods=('GET', 'POST'))
 def home():
     return render_template('index.html')
 
+@app.route('/upload', methods=['POST'])
+def upload():
+    file = request.files['file']
+    path = 'uploads'
+
+    if file and allowed_file_types(file.filename):
+        file.save(path + file.filename)
+        return 'file Uploaded and saved'
+    else:
+        return 'Invalid file'
+
+
 @app.route("/base")
 def base():
     return render_template('base.html')
 
-@app.route("/listen")
-def listen():
-    
-    def respond_to_client():
-        while True:
-            global counter
-
-            with open("color.txt", "r") as f:
-                color = f.read()
-                print("*****")
-
-            if (color != "White"):
-                print(counter)
-                counter += 1
-                _data = json.dumps({"color":color, "counter":counter})
-                yield f"id: 1\ndata: {_data}\nevent: online\n\n"
-
-            time.sleep(0.5)
-            
-    return Response(respond_to_client(), mimetype='text/event-stream')
-
 if __name__ == '__main__':
-    http_server = WSGIServer(('localhost', 80), app)
-    http_server.serve_forever()
+    app.run(debug=True)
