@@ -8,16 +8,22 @@
   <title>Home</title>
   
 </head>
+
 <body>
   <header>
-    {% extends 'navigation.html' %}
+    {% include 'navigation.html' %}
   </header>
 
-  <h2>Upload Pictures</h2>
+  <h2>Control Panel</h2>
+
+  <h3>Upload Pictures</h3>
   <form action="/upload" method="post" enctype="multipart/form-data">
     <input type="file" name="file" />
     <input type="submit" value="Upload" />
   </form>
 
+  <footer>
+    {% include 'footer.html' %}
+  </footer>
 </body>
 </html>

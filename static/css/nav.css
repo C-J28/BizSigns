@@ -1,0 +1,24 @@
+:root {
+    --primary: #F9E8D9;
+    --secondary: #527853;
+    --tertiary: #F7B787;
+    --quaternary: #EE7214;
+
+    --text: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    padding: 1.5vw;
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+nav > h1 {
+    font-size: x-large;
+    padding-bottom: 2vw;
+}

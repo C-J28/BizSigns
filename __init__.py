@@ -20,35 +20,56 @@ def allowed_file_types(filename):
 @app.route('/navigation', methods = ['POST', 'GET'])
 def check_navbar():
     if request.method == 'POST':
-        if request.form.get('btn1') == 'Home':
+        if request.form.get('home') == 'Home':
             return home()
         
-        elif request.form.get('btn2') == 'Sign In':
+        elif request.form.get('signin') == 'Sign In':
             return render_template('signin.html')
         
-        elif request.form.get('btn3') == 'About':
+        elif request.form.get('about') == 'About':
             return render_template('about.html')
         
-        elif request.form.get('btn4') == 'Contact':
+        elif request.form.get('contact') == 'Contact':
             return render_template('contact.html')
 
     elif request.method == 'GET':
         return render_template('index.html', form=form)
 
+#Visable Pages
 @app.route('/', methods=('GET', 'POST'))
 @app.route('/home', methods=('GET', 'POST'))
 def home():
     return render_template('index.html')
 
-@app.route('/navpage') 
-def navpage(): 
-    return render_template('navpage.html') 
+@app.route('/products', methods=('GET', 'POST'))
+def products():
+    name = request.cookies.get('userID')
+
+    return render_template('hub.html')
+
+@app.route('/uses', methods=('GET', 'POST'))
+def uses():
+    name = request.cookies.get('userID')
+
+    return render_template('hub.html')
+
+@app.route('/about', methods=('GET', 'POST'))
+def about():
+    name = request.cookies.get('userID')
+
+    return render_template('hub.html')
 
 @app.route('/hub', methods=('GET', 'POST'))
 def hub():
     name = request.cookies.get('userID')
 
     return render_template('hub.html')
+
+
+#Site Tools
+@app.route('/navpage') 
+def navpage(): 
+    return render_template('navpage.html') 
 
 @app.route('/signin', methods=('GET', 'POST'))
 def login():
@@ -80,8 +101,7 @@ def setcookie():
         resp = make_response('Setting the Cookie')
         resp.set_cookie('userID', user)
    
-        return resp 
-
+        return hub()
 
 
 if __name__ == '__main__':
