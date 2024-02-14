@@ -9,7 +9,9 @@
   
 </head>
 <body>
-  <h1>MainPage New</h1>
+  <header>
+    {% extends 'navigation.html' %}
+  </header>
 
   <h2>Upload Pictures</h2>
   <form action="/upload" method="post" enctype="multipart/form-data">
